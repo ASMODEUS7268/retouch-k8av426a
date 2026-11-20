@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Портфолио ретуши</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex, nofollow, noarchive">
@@ -68,7 +70,7 @@ header.top p { max-width: 62ch; margin: 0; color: var(--muted); font-size: var(-
 .contact { display: inline-flex; align-items: stretch; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); overflow: hidden; max-width: 100%; }
 .contacts { display: flex; flex-wrap: wrap; gap: 8px; }
 .contact .addr { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; font-family: var(--f-mono); font-size: var(--step--1); user-select: all; overflow-wrap: anywhere; min-width: 0; }
-.contact .addr b { color: var(--muted); font-weight: 400; user-select: none; }
+.contact .addr b { color: var(--muted); font-weight: 400; user-select: none; white-space: nowrap; }
 .contact a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; color: var(--fg); text-decoration: none; font-family: var(--f-mono); font-size: var(--step--1); user-select: all; }
 .contact a b { color: var(--muted); font-weight: 400; user-select: none; }
 .contact a:hover, .contact a:focus-visible { color: var(--accent); outline: none; }
@@ -132,7 +134,42 @@ section.hire p { margin: 0; max-width: 60ch; color: var(--muted); }
 
 footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-width: 70ch; }
 
+/* ---------- hero ---------- */
+header.top.hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 28px 48px; align-items: center; padding-block: 36px 40px; }
+.hero-text { display: grid; gap: 20px; min-width: 0; }
+.hero-text .idrow { margin-bottom: 8px; }
+.hero h1 { font-size: clamp(2rem, 1rem + 3.4vw, 3.8rem); line-height: 1.04; letter-spacing: -0.025em; overflow-wrap: break-word; hyphens: auto; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-fig { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.hero-fig .cmp { max-height: 78vh; box-shadow: 0 30px 60px -30px rgba(0,0,0,.45); }
+.hero-fig figcaption { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); flex-wrap: wrap; }
+.hero-bottom { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+.stats { display: flex; flex-wrap: wrap; gap: 12px 56px; margin: 0; }
+.stats dd { white-space: nowrap; }
+.stats div { display: grid; gap: 2px; }
+.stats dt { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); letter-spacing: 0.04em; order: 2; }
+.stats dd { margin: 0; font-family: var(--f-display); font-size: var(--step-2); font-weight: 500; font-variant-numeric: tabular-nums; order: 1; }
+
+/* ---------- contact sheet ---------- */
+.sheet { padding-block: 20px 4px; display: grid; gap: 10px; }
+.sheet-strip { display: flex; gap: 6px; overflow-x: auto; padding: 10px; background: var(--frame); border-radius: 3px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.sheet-strip a { flex: 0 0 auto; display: grid; gap: 6px; text-decoration: none; scroll-snap-align: start; border-radius: 2px; }
+.sheet-strip img { height: 92px; width: auto; display: block; border-radius: 2px; opacity: .82; transition: opacity .2s, transform .2s; }
+.sheet-strip span { font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em; color: #e0b54a; }
+.sheet-strip a:hover img, .sheet-strip a:focus-visible img { opacity: 1; transform: translateY(-2px); }
+.sheet-strip a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- work polish ---------- */
+section.group > h2 .count { font-family: var(--f-mono); font-size: var(--step--1); font-weight: 400; color: var(--on-accent); background: var(--accent); padding: 2px 8px; border-radius: 99px; letter-spacing: .04em; align-self: center; }
+.work { padding-top: 40px; border-top: 1px solid var(--line); scroll-margin-top: 70px; }
+section.group > h2 + .work { border-top: 0; padding-top: 0; }
+.notes .frame-no { font-family: var(--f-display); font-size: var(--step-2); font-weight: 500; color: var(--line); line-height: 1; }
+.cmp { transition: box-shadow .3s; }
+.work .cmp:hover { box-shadow: 0 24px 48px -28px rgba(0,0,0,.5); }
+
 @media (max-width: 860px) {
+  header.top.hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-bottom { grid-template-columns: minmax(0, 1fr); }
   .work.portrait { grid-template-columns: minmax(0, 1fr); }
   .work.landscape .notes { grid-template-columns: minmax(0, 1fr); }
   .hint { display: none; }
@@ -141,7 +178,8 @@ footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-w
 </style>
 
 <div class="wrap">
-  <header class="top">
+  <header class="top hero">
+    <div class="hero-text">
     <div class="idrow">
       <span class="who">Yulian</span>
       <span class="where" data-i="where"></span>
@@ -151,14 +189,24 @@ footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-w
       </div>
     </div>
     <div class="eyebrow" data-i="eyebrow"></div>
-    <h1 data-i="h1"></h1>
+    <h1 id="h1"></h1>
     <p data-i="lead"></p>
-    <div class="pipeline" id="pipeline"></div>
     <div class="contacts">
       <span class="contact"><a href="https://t.me/Jullien41k" target="_blank" rel="noopener"><b>Telegram</b>@Jullien41k</a><button type="button" class="copy" data-i="copy" data-copy="@Jullien41k"></button></span>
       <span class="contact"><span class="addr"><b>Email</b>workjullien41k@duck.com</span><button type="button" class="copy" data-i="copy" data-copy="workjullien41k@duck.com"></button></span>
     </div>
+    </div>
+    <figure class="hero-fig" id="hero-fig"></figure>
+    <div class="hero-bottom">
+      <dl class="stats" id="stats"></dl>
+      <div class="pipeline" id="pipeline"></div>
+    </div>
   </header>
+
+  <div class="sheet" aria-label="Contact sheet">
+    <div class="eyebrow" data-i="sheet_h"></div>
+    <div class="sheet-strip" id="sheet"></div>
+  </div>
 
   <nav class="sections" aria-label="Sections">
     <a href="#hard" data-i="nav_hard"></a>
@@ -198,7 +246,11 @@ const T = {
     where: "Гюмри · удалённо",
     eyebrow: "Ретушь и цветокоррекция · 15 работ · 2026",
     nav_hard: "Сложные случаи", g_hard: "Сложные случаи", g_hard_s: "акне, реставрация, тёмный кадр",
-    h1: "Свет, кожа и цвет без потери живости",
+    h1: "Свет, кожа и цвет <em>без потери живости</em>",
+    sheet_h: "Контактный лист · 15 кадров · нажмите, чтобы перейти",
+    stats: [["15", "работ в портфолио"], ["384", "точечные правки"], ["16 бит", "все правки слоями"]],
+    heroCap: ["Кадр 01 · бьюти-портрет с акне", "← тяните шторку →"],
+    frame: "Кадр",
     lead: "Портреты, животные, интерьеры и улицы. Работаю из RAW и без разрушения исходника: каждый шаг лежит отдельным слоем, его можно ослабить или отменить.",
     pipeline: ["RAW", "Camera Raw", "чистка", "частотное разложение", "Dodge & Burn", "цвет", "резкость под вывод"],
     copy: "Скопировать", copied: "Скопировано", copyFail: "Выделите и скопируйте",
@@ -225,7 +277,11 @@ const T = {
     where: "Gyumri · remote",
     eyebrow: "Retouching & colour grading · 15 works · 2026",
     nav_hard: "Hard cases", g_hard: "Hard cases", g_hard_s: "acne, restoration, dark frames",
-    h1: "Light, skin and colour that stay alive",
+    h1: "Light, skin and colour <em>that stay alive</em>",
+    sheet_h: "Contact sheet · 15 frames · tap to jump",
+    stats: [["15", "works in the portfolio"], ["384", "spot fixes"], ["16-bit", "every edit on a layer"]],
+    heroCap: ["Frame 01 · beauty portrait with acne", "← drag the slider →"],
+    frame: "Frame",
     lead: "Portraits, animals, interiors and streets. I work from RAW and never touch the original: every step sits on its own layer, so it can be dialled back or removed.",
     pipeline: ["RAW", "Camera Raw", "clean-up", "frequency separation", "Dodge & Burn", "colour", "output sharpening"],
     copy: "Copy", copied: "Copied", copyFail: "Select and copy",
@@ -361,21 +417,52 @@ const WORKS = [
 let LANG = "ru";
 try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "en") LANG = saved; else if (!/^ru|^hy/i.test(navigator.language || "")) LANG = "en"; } catch (e) {}
 
-function card(w, t, L) {
+const GROUPS = ["hard", "portraits", "animals", "places"];
+const ORDER = GROUPS.flatMap(g => WORKS.filter(w => w.group === g));
+const pad2 = (n) => String(n).padStart(2, "0");
+
+function cmpHTML(w, t, L) {
+  return `<img class="after" src="img/${w.id}_after.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altAfter}" decoding="async">
+      <img class="before" src="img/${w.id}_before.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altBefore}" decoding="async">
+      <div class="split"></div><div class="knob" aria-hidden="true">⇆</div>
+      <span class="tag l">${L.before}</span><span class="tag r">${L.after}</span>
+      <input type="range" min="0" max="100" value="50" step="1" id="r-${w.id}" aria-label="${L.cmpLabel}: ${t.title}">`;
+}
+
+let heroPlayed = false;
+function renderHero(L) {
+  const w = WORKS.find(x => x.id === "beauty_acne_11"), t = w[LANG];
+  const fig = document.getElementById("hero-fig");
+  fig.innerHTML = `<div class="cmp" style="aspect-ratio:${w.w}/${w.h}">${cmpHTML(w, t, L).replace(/id="r-/, 'id="hero-r-')}</div>
+    <figcaption><span>${L.heroCap[0]}</span><span>${L.heroCap[1]}</span></figcaption>`;
+  const c = fig.querySelector(".cmp"); wire(c);
+  // one gentle sweep on first load so the difference is visible at once
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (heroPlayed || reduce) return; heroPlayed = true;
+  const keys = [[0, 50], [700, 22], [1700, 80], [2500, 50]]; let start = null, stop = false;
+  c.addEventListener("pointerdown", () => { stop = true; }, { once: true });
+  const ease = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  const step = (ts) => {
+    if (stop) return; if (start === null) start = ts; const el = ts - start - 600;
+    if (el < 0) { requestAnimationFrame(step); return; }
+    let p = 50; for (let i = 1; i < keys.length; i++) { if (el <= keys[i][0]) { const a = keys[i-1], b = keys[i]; p = a[1] + (b[1] - a[1]) * ease((el - a[0]) / (b[0] - a[0])); break; } }
+    c.style.setProperty("--pos", p + "%");
+    if (el < keys[keys.length - 1][0]) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function card(w, t, L, n) {
   const orient = w.h > w.w ? "portrait" : "landscape";
   const el = document.createElement("article");
   el.className = "work " + orient;
   el.id = w.id;
   el.innerHTML = `
     <figure class="cmp" style="aspect-ratio:${w.w}/${w.h}">
-      <img class="after" src="img/${w.id}_after.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altAfter}" decoding="async">
-      <img class="before" src="img/${w.id}_before.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altBefore}" decoding="async">
-      <div class="split"></div><div class="knob" aria-hidden="true">⇆</div>
-      <span class="tag l">${L.before}</span><span class="tag r">${L.after}</span>
-      <input type="range" min="0" max="100" value="50" step="1" id="r-${w.id}" aria-label="${L.cmpLabel}: ${t.title}">
+      ${cmpHTML(w, t, L)}
     </figure>
     <div class="notes">
-      <div class="head"><div class="eyebrow">${t.genre}</div><h3>${t.title}</h3><p class="task">${t.task}</p></div>
+      <div class="head"><div class="frame-no" aria-hidden="true">${pad2(n)}</div><div class="eyebrow">${L.frame} ${pad2(n)} · ${t.genre}</div><h3>${t.title}</h3><p class="task">${t.task}</p></div>
       <ul>${t.done.map(d => `<li>${d}</li>`).join("")}</ul>
       <div class="tech mono">${t.tech}</div>
       <div class="credit mono">${t.credit}</div>
@@ -407,8 +494,18 @@ function render() {
   for (const el of document.querySelectorAll("[data-i]")) { const v = L[el.dataset.i]; if (typeof v === "string") el.textContent = v; }
   document.getElementById("pipeline").innerHTML = L.pipeline.map(s => `<span>${s.replace("&", "&amp;")}</span>`).join("<i>→</i>");
   document.getElementById("steps").innerHTML = L.steps.map(s => `<li><b>${s[0]}</b><h3>${s[1].replace("&", "&amp;")}</h3><p>${s[2]}</p></li>`).join("");
-  for (const g of ["hard", "portraits", "animals", "places"]) for (const a of document.querySelectorAll(`#${g} > article`)) a.remove();
-  for (const w of WORKS) document.getElementById(w.group).appendChild(card(w, w[LANG], L));
+  document.getElementById("h1").innerHTML = L.h1;
+  document.getElementById("stats").innerHTML = L.stats.map(s => `<div><dt>${s[1]}</dt><dd>${s[0]}</dd></div>`).join("");
+  document.getElementById("sheet").innerHTML = ORDER.map((w, i) => `<a href="#${w.id}" title="${w[LANG].title}"><img src="img/thumbs/${w.id}.jpg" alt="${w[LANG].title}" decoding="async" width="${Math.round(92 * w.w / w.h)}" height="92"><span>${pad2(i + 1)}</span></a>`).join("");
+  renderHero(L);
+  for (const g of GROUPS) {
+    const sec = document.getElementById(g);
+    for (const a of sec.querySelectorAll(":scope > article")) a.remove();
+    const h2 = sec.querySelector("h2"); let cnt = h2.querySelector(".count");
+    if (!cnt) { cnt = document.createElement("span"); cnt.className = "count"; h2.appendChild(cnt); }
+    cnt.textContent = pad2(WORKS.filter(w => w.group === g).length);
+  }
+  ORDER.forEach((w, i) => document.getElementById(w.group).appendChild(card(w, w[LANG], L, i + 1)));
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
 }
 
