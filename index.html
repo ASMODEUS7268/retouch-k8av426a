@@ -271,8 +271,10 @@ const T = {
     nav_hard: "Сложные случаи", g_hard: "Сложные случаи", g_hard_s: "акне, реставрация, тёмный кадр",
     nav_cards: "Карточки товаров", g_cards: "Карточки для маркетплейсов", g_cards_s: "Wildberries · Ozon · Авито",
     cards_lead: "Обложка и слайды инфографики 1200×1600 (3:4). Товар вырезан из фона, каждый файл — PSD со слоями: тексты, цвета и фото товара меняются за минуты. Бренды вымышленные, сделаны для портфолио.",
-    cardsets: [["Беспроводные наушники", "тёмный техно-стиль"], ["Крем для лица", "пастельная бьюти-подача"], ["Кожаные кеды", "яркий спортивный стиль"]],
-    cardnames: ["Обложка", "Преимущества", "Характеристики", "Обложка", "Компоненты", "Как применять", "Обложка", "Детали", "Размерная сетка"],
+    cardsets: [["Обложки в стиле Wildberries", "сцена, крупное слово за товаром, лупа, стикеры", ["Сыворотка", "Свеча", "Рюкзак", "Колонка", "Бутылки"]],
+      ["Беспроводные наушники", "тёмный техно-стиль", ["Обложка", "Преимущества", "Характеристики"]],
+      ["Крем для лица", "пастельная бьюти-подача", ["Обложка", "Компоненты", "Как применять"]],
+      ["Кожаные кеды", "яркий спортивный стиль", ["Обложка", "Детали", "Размерная сетка"]]],
     cardcredit: "Фото товара:",
     h1: "Свет, кожа и цвет <em>без потери живости</em>",
     sheet_h: "Контактный лист · 15 кадров · нажмите, чтобы перейти",
@@ -307,8 +309,10 @@ const T = {
     nav_hard: "Hard cases", g_hard: "Hard cases", g_hard_s: "acne, restoration, dark frames",
     nav_cards: "Product cards", g_cards: "Marketplace product cards", g_cards_s: "Wildberries · Ozon · Avito",
     cards_lead: "Cover and infographic slides at 1200×1600 (3:4). The product is cut out from its background and every file is a layered PSD, so texts, colours and the product photo can be swapped in minutes. Brands are fictional, made for the portfolio.",
-    cardsets: [["Wireless headphones", "dark tech style"], ["Face cream", "soft pastel beauty"], ["Leather sneakers", "bold sport style"]],
-    cardnames: ["Cover", "Benefits", "Specs", "Cover", "Ingredients", "How to use", "Cover", "Details", "Size chart"],
+    cardsets: [["Wildberries-style covers", "scene, giant word behind the product, loupe, stickers", ["Serum", "Candle", "Backpack", "Speaker", "Bottles"]],
+      ["Wireless headphones", "dark tech style", ["Cover", "Benefits", "Specs"]],
+      ["Face cream", "soft pastel beauty", ["Cover", "Ingredients", "How to use"]],
+      ["Leather sneakers", "bold sport style", ["Cover", "Details", "Size chart"]]],
     cardcredit: "Product photo:",
     h1: "Light, skin and colour <em>that stay alive</em>",
     sheet_h: "Contact sheet · 15 frames · tap to jump",
@@ -540,13 +544,14 @@ function render() {
   }
   ORDER.forEach((w, i) => document.getElementById(w.group).appendChild(card(w, w[LANG], L, i + 1)));
   const CARDSETS = [
+    { id: "v2", files: ["01_serum_cover", "02_candle_cover", "03_backpack_cover", "04_speaker_cover", "05_bottles_cover"], credit: "Pexels (Ksenia Chernaya, Katrin Bolovtsova, Valentin Ivantsov, Kaye RD, cottonbro studio)" },
     { id: "headphones", files: ["card_01_cover", "card_02_benefits", "card_03_specs"], credit: "Caleb Oquendo (Pexels)" },
     { id: "cream", files: ["card_01_cover", "card_02_ingredients", "card_03_howto"], credit: "Deepa Nishad (Pexels)" },
     { id: "sneakers", files: ["card_01_cover", "card_02_details", "card_03_sizes"], credit: "saeed karimi (Pexels)" }];
   document.getElementById("cards-list").innerHTML = CARDSETS.map((cs, si) => `
     <div class="cardset">
       <div class="cardset-head"><h3>${L.cardsets[si][0]}</h3><span>${L.cardsets[si][1]} · ${L.cardcredit} ${cs.credit}</span></div>
-      <div class="cardset-grid">${cs.files.map((f, fi) => `<figure><a href="img/cards/${cs.id}_${f}.jpg" target="_blank" rel="noopener"><img src="img/cards/${cs.id}_${f}.jpg" alt="${L.cardsets[si][0]}: ${L.cardnames[si * 3 + fi]}" loading="lazy" decoding="async" width="900" height="1200"></a><figcaption>${pad2(fi + 1)} · ${L.cardnames[si * 3 + fi]}</figcaption></figure>`).join("")}</div>
+      <div class="cardset-grid">${cs.files.map((f, fi) => `<figure><a href="img/cards/${cs.id}_${f}.jpg" target="_blank" rel="noopener"><img src="img/cards/${cs.id}_${f}.jpg" alt="${L.cardsets[si][0]}: ${L.cardsets[si][2][fi]}" loading="lazy" decoding="async" width="900" height="1200"></a><figcaption>${pad2(fi + 1)} · ${L.cardsets[si][2][fi]}</figcaption></figure>`).join("")}</div>
     </div>`).join("");
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
 }
