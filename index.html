@@ -1,0 +1,392 @@
+<title>Портфолио ретуши</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a retoucher's workspace. Neutral panel greys (colour-safe surround), big comparison frames, notes column in mono like a layers panel. */
+:root {
+  --bg: #e9e9e8;
+  --panel: #f6f6f5;
+  --fg: #1c1d1f;
+  --muted: #5d6066;
+  --line: #d2d2d0;
+  --accent: #0d66d0;
+  --on-accent: #ffffff;
+  --frame: #2b2b2b;
+  --f-display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  --step-3: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #262626; --panel: #323232; --fg: #e8e8e8; --muted: #a3a3a3; --line: #424242;
+    --accent: #3b8cf0; --on-accent: #0b1220; --frame: #1a1a1a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #262626; --panel: #323232; --fg: #e8e8e8; --muted: #a3a3a3; --line: #424242;
+  --accent: #3b8cf0; --on-accent: #0b1220; --frame: #1a1a1a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: var(--step-0); line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+.wrap { max-width: 1240px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+.mono { font-family: var(--f-mono); font-size: var(--step--1); }
+.eyebrow { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+button { font: inherit; color: inherit; }
+
+/* ---------- header ---------- */
+header.top { padding-block: 40px 32px; display: grid; gap: 20px; border-bottom: 1px solid var(--line); }
+.idrow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.who { font-family: var(--f-display); font-weight: 500; font-size: var(--step-1); }
+.where { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); }
+.lang { margin-left: auto; display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+.lang button { background: transparent; border: 0; padding: 6px 12px; font-family: var(--f-mono); font-size: var(--step--1); cursor: pointer; color: var(--muted); }
+.lang button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.lang button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+header.top h1 { font-size: var(--step-3); font-weight: 700; line-height: 1.05; max-width: 17ch; }
+header.top p { max-width: 62ch; margin: 0; color: var(--muted); font-size: var(--step-1); line-height: 1.5; }
+.pipeline { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pipeline span { font-family: var(--f-mono); font-size: var(--step--1); padding: 4px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); }
+.pipeline i { font-style: normal; color: var(--muted); }
+
+/* contact chip (header + footer) */
+.contact { display: inline-flex; align-items: stretch; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); overflow: hidden; max-width: 100%; }
+.contacts { display: flex; flex-wrap: wrap; gap: 8px; }
+.contact .addr { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; font-family: var(--f-mono); font-size: var(--step--1); user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.contact .addr b { color: var(--muted); font-weight: 400; user-select: none; }
+.contact a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; color: var(--fg); text-decoration: none; font-family: var(--f-mono); font-size: var(--step--1); user-select: all; }
+.contact a b { color: var(--muted); font-weight: 400; user-select: none; }
+.contact a:hover, .contact a:focus-visible { color: var(--accent); outline: none; }
+.contact button { border: 0; border-left: 1px solid var(--line); background: transparent; padding: 8px 12px; font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); cursor: pointer; }
+.contact button:hover, .contact button:focus-visible { color: var(--accent); outline: none; }
+
+nav.sections { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+nav.sections a { font-family: var(--f-mono); font-size: var(--step--1); color: var(--fg); text-decoration: none; padding: 6px 12px; border-radius: 3px; border: 1px solid var(--line); }
+nav.sections a:hover, nav.sections a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.hint { margin-left: auto; color: var(--muted); font-family: var(--f-mono); font-size: var(--step--1); align-self: center; }
+
+/* ---------- sections & works ---------- */
+section.group { padding-block: 56px 8px; display: grid; gap: 40px; scroll-margin-top: 64px; }
+section.group > h2 { font-size: var(--step-2); font-weight: 500; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+section.group > h2 small { font-family: var(--f-mono); font-size: var(--step--1); font-weight: 400; color: var(--muted); letter-spacing: 0.04em; }
+
+.work { display: grid; gap: 20px 32px; align-items: start; }
+.work.portrait { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.work.landscape { grid-template-columns: minmax(0, 1fr); }
+.work.landscape .notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 32px; }
+.work.landscape .notes .head { grid-column: 1 / -1; }
+
+.cmp { position: relative; margin: 0; background: var(--frame); border-radius: 2px; overflow: hidden; max-width: 100%;
+  touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; --pos: 50%; }
+.work.portrait .cmp { max-height: 86vh; }
+.cmp img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.cmp img.before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.cmp .split { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); pointer-events: none; }
+.cmp .knob { position: absolute; top: 50%; left: var(--pos); width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
+  background: #fff; color: #1c1d1f; display: grid; place-items: center; box-shadow: 0 2px 10px rgba(0,0,0,.35); pointer-events: none;
+  font: 600 14px/1 var(--f-mono); }
+.cmp .tag { position: absolute; top: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 2px; background: rgba(20,20,20,.62); color: #f2f2f2; pointer-events: none; }
+.cmp .tag.l { left: 12px; } .cmp .tag.r { right: 12px; }
+.cmp input[type=range] { position: absolute; inset: auto 0 0 0; width: 100%; opacity: 0; height: 1px; pointer-events: none; }
+.cmp:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.notes { display: grid; gap: 12px; min-width: 0; }
+.notes .head { display: grid; gap: 6px; }
+.notes h3 { font-size: var(--step-1); font-weight: 500; }
+.notes .task { margin: 0; font-size: var(--step-0); }
+.notes ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.notes li { padding-left: 18px; position: relative; color: var(--fg); }
+.notes li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 1px; background: var(--accent); }
+.notes .tech { color: var(--muted); padding: 10px 12px; border: 1px solid var(--line); background: var(--panel); border-radius: 3px; line-height: 1.7; overflow-wrap: anywhere; }
+.notes .credit { color: var(--muted); }
+
+/* ---------- process ---------- */
+section.process { padding-block: 72px 24px; display: grid; gap: 28px; border-top: 1px solid var(--line); margin-top: 56px; }
+section.process h2, section.hire h2 { font-size: var(--step-2); font-weight: 500; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.steps li { background: var(--panel); padding: 18px; display: grid; gap: 8px; align-content: start; }
+.steps b { font-family: var(--f-mono); font-size: var(--step--1); color: var(--accent); font-weight: 500; }
+.steps h3 { font-size: var(--step-0); font-weight: 500; font-family: var(--f-body); }
+.steps p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---------- hire ---------- */
+section.hire { padding-block: 56px 8px; display: grid; gap: 16px; border-top: 1px solid var(--line); margin-top: 48px; }
+section.hire p { margin: 0; max-width: 60ch; color: var(--muted); }
+
+footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-width: 70ch; }
+
+@media (max-width: 860px) {
+  .work.portrait { grid-template-columns: minmax(0, 1fr); }
+  .work.landscape .notes { grid-template-columns: minmax(0, 1fr); }
+  .hint { display: none; }
+  header.top { padding-block: 28px 24px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="idrow">
+      <span class="who">Yulian</span>
+      <span class="where" data-i="where"></span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-ru" data-lang="ru">RU</button>
+        <button type="button" id="lang-en" data-lang="en">EN</button>
+      </div>
+    </div>
+    <div class="eyebrow" data-i="eyebrow"></div>
+    <h1 data-i="h1"></h1>
+    <p data-i="lead"></p>
+    <div class="pipeline" id="pipeline"></div>
+    <div class="contacts">
+      <span class="contact"><a href="https://t.me/Jullien41k" target="_blank" rel="noopener"><b>Telegram</b>@Jullien41k</a><button type="button" class="copy" data-i="copy" data-copy="@Jullien41k"></button></span>
+      <span class="contact"><span class="addr"><b>Email</b>workjullien41k@duck.com</span><button type="button" class="copy" data-i="copy" data-copy="workjullien41k@duck.com"></button></span>
+    </div>
+  </header>
+
+  <nav class="sections" aria-label="Sections">
+    <a href="#portraits" data-i="nav_portraits"></a>
+    <a href="#animals" data-i="nav_animals"></a>
+    <a href="#places" data-i="nav_places"></a>
+    <a href="#process" data-i="nav_process"></a>
+    <a href="#hire" data-i="nav_hire"></a>
+    <span class="hint" data-i="hint"></span>
+  </nav>
+
+  <section class="group" id="portraits"><h2><span data-i="g_portraits"></span> <small data-i="g_portraits_s"></small></h2></section>
+  <section class="group" id="animals"><h2><span data-i="g_animals"></span> <small data-i="g_animals_s"></small></h2></section>
+  <section class="group" id="places"><h2><span data-i="g_places"></span> <small data-i="g_places_s"></small></h2></section>
+
+  <section class="process" id="process">
+    <h2 data-i="proc_h"></h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <section class="hire" id="hire">
+    <h2 data-i="hire_h"></h2>
+    <p data-i="hire_p"></p>
+    <div class="contacts">
+      <span class="contact"><a href="https://t.me/Jullien41k" target="_blank" rel="noopener"><b>Telegram</b>@Jullien41k</a><button type="button" class="copy" data-i="copy" data-copy="@Jullien41k"></button></span>
+      <span class="contact"><span class="addr"><b>Email</b>workjullien41k@duck.com</span><button type="button" class="copy" data-i="copy" data-copy="workjullien41k@duck.com"></button></span>
+    </div>
+  </section>
+
+  <footer data-i="footer"></footer>
+</div>
+
+<script>
+const T = {
+  ru: {
+    where: "Гюмри · удалённо",
+    eyebrow: "Ретушь и цветокоррекция · 10 работ · 2026",
+    h1: "Свет, кожа и цвет без потери живости",
+    lead: "Портреты, животные, интерьеры и улицы. Работаю из RAW и без разрушения исходника: каждый шаг лежит отдельным слоем, его можно ослабить или отменить.",
+    pipeline: ["RAW", "Camera Raw", "чистка", "частотное разложение", "Dodge & Burn", "цвет", "резкость под вывод"],
+    copy: "Скопировать", copied: "Скопировано", copyFail: "Выделите и скопируйте",
+    nav_portraits: "Портреты", nav_animals: "Животные", nav_places: "Места и предметы", nav_process: "Как я работаю", nav_hire: "Связаться",
+    hint: "Тяните шторку: слева исходник с камеры",
+    g_portraits: "Портреты", g_portraits_s: "бьюти и лайфстайл",
+    g_animals: "Животные", g_animals_s: "свет и текстура",
+    g_places: "Места и предметы", g_places_s: "интерьер, город, тревел",
+    before: "Исходник", after: "Результат", altBefore: "исходник с камеры", altAfter: "результат ретуши", cmpLabel: "Сравнение",
+    proc_h: "Как я работаю",
+    steps: [
+      ["01 · RAW", "База в Camera Raw", "Экспозиция, света и тени, оптика. Настройки хранятся в XMP рядом с файлом, сам RAW не меняется."],
+      ["02 · Чистка", "Только временное", "Убираю воспаления, пыль, случайные волоски. Веснушки, родинки и черты лица остаются."],
+      ["03 · Кожа", "Частотное разложение", "Выравниваю тон на нижней частоте, текстуру пор не трогаю. Никакого «пластика»."],
+      ["04 · Свет", "Dodge & Burn", "Локальный свет ведёт взгляд: лицо, глаза, главный объект. Каждый участок под своей маской."],
+      ["05 · Цвет", "Грейдинг слоями", "Кривые и цветовой баланс отдельными слоями. Работаю в 16 бит и широком охвате, сдаю в sRGB."],
+      ["06 · Вывод", "Резкость под размер", "Повышаю резкость в самом конце, отдельно для печати и для веба. PSD остаётся без неё."]
+    ],
+    hire_h: "Связаться",
+    hire_p: "Беру ретушь портретов, предметную и тревел-съёмку, цветокоррекцию серий. Работаю удалённо из Гюмри. Пришлите пару кадров и задачу, отвечу со сроками и стоимостью.",
+    footer: "Исходные RAW-файлы взяты из открытых учебных наборов. Автор снимка указан у каждой работы, где он известен. Ретушь и цветокоррекция выполнены мной."
+  },
+  en: {
+    where: "Gyumri · remote",
+    eyebrow: "Retouching & colour grading · 10 works · 2026",
+    h1: "Light, skin and colour that stay alive",
+    lead: "Portraits, animals, interiors and streets. I work from RAW and never touch the original: every step sits on its own layer, so it can be dialled back or removed.",
+    pipeline: ["RAW", "Camera Raw", "clean-up", "frequency separation", "Dodge & Burn", "colour", "output sharpening"],
+    copy: "Copy", copied: "Copied", copyFail: "Select and copy",
+    nav_portraits: "Portraits", nav_animals: "Animals", nav_places: "Places & objects", nav_process: "How I work", nav_hire: "Contact",
+    hint: "Drag the slider: camera original on the left",
+    g_portraits: "Portraits", g_portraits_s: "beauty & lifestyle",
+    g_animals: "Animals", g_animals_s: "light & texture",
+    g_places: "Places & objects", g_places_s: "interior, city, travel",
+    before: "Original", after: "Result", altBefore: "camera original", altAfter: "retouched result", cmpLabel: "Comparison",
+    proc_h: "How I work",
+    steps: [
+      ["01 · RAW", "Base in Camera Raw", "Exposure, highlights and shadows, lens corrections. Settings live in an XMP sidecar; the RAW itself is never changed."],
+      ["02 · Clean-up", "Only what's temporary", "I remove breakouts, dust and stray hairs. Freckles, moles and facial features stay."],
+      ["03 · Skin", "Frequency separation", "Tone is evened on the low frequency; pore texture is left intact. No plastic skin."],
+      ["04 · Light", "Dodge & Burn", "Local light guides the eye to the face, the eyes, the subject. Every area has its own mask."],
+      ["05 · Colour", "Grading in layers", "Curves and colour balance as separate layers. 16-bit and a wide gamut while editing, sRGB on delivery."],
+      ["06 · Output", "Sharpening per size", "Sharpening comes last, tuned separately for print and web. The PSD stays unsharpened."]
+    ],
+    hire_h: "Contact",
+    hire_p: "I take on portrait retouching, product and travel work, and colour grading for series. Based in Gyumri, working remotely. Send a couple of frames and your brief, and I'll reply with timing and a quote.",
+    footer: "The source RAW files come from open training sets. The photographer is credited on each work where known. Retouching and colour grading are mine."
+  }
+};
+
+const WORKS = [
+  { id: "portrait_3916", group: "portraits", w: 1066, h: 1600,
+    ru: { title: "Студийный портрет", genre: "Бьюти", task: "Чистая кожа без потери текстуры и характера.",
+      done: ["44 воспаления убраны точечно, веснушки и родинка сохранены", "Частотное разложение: тон выровнен на 40%, поры на месте", "Убраны прядь через щёку и выбившиеся волоски на фоне", "Приглушены блики на скулах, осветлена зона под глазами", "Зубы: минус 30 насыщенности жёлтого", "Цвет: холодные тени, тёплые света, мягкая S-кривая"],
+      tech: "ACR: Света −25 · Тени +12 · Яркость +5<br>PSD: 16 бит · Display P3 · 6 групп слоёв", credit: "Исходник: учебный RAW" },
+    en: { title: "Studio portrait", genre: "Beauty", task: "Clean skin without losing texture or character.",
+      done: ["44 breakouts removed one by one; freckles and the mole kept", "Frequency separation: tone evened at 40%, pores intact", "Removed a hair across the cheek and flyaways on the backdrop", "Toned down cheekbone shine, lifted the under-eye area", "Teeth: yellow saturation −30", "Colour: cool shadows, warm highlights, gentle S-curve"],
+      tech: "ACR: Highlights −25 · Shadows +12 · Vibrance +5<br>PSD: 16-bit · Display P3 · 6 layer groups", credit: "Source: training RAW" } },
+  { id: "fan_6", group: "portraits", w: 1066, h: 1600,
+    ru: { title: "Портрет с веером", genre: "Лайфстайл", task: "Вывести лицо из тени и не перенасытить красное платье.",
+      done: ["Красный в RAW −6: рисунок шёлка не «забит»", "Оранжевый +6 по яркости: кожа светлее без маски", "Частотное разложение на лице, 8 точечных правок", "Мягкий свет на лицо и глаза: взгляд считывается первым", "Бирюзовые тени против красного, виньетка"],
+      tech: "ACR: Экспозиция +0.2 · Света −20 · Тени +12<br>HSL: Красный −6 нас. · Оранжевый +6 ярк.", credit: "Фото: @exztagram · модель: @natasyanact" },
+    en: { title: "Portrait with a fan", genre: "Lifestyle", task: "Bring the face out of shadow without oversaturating the red dress.",
+      done: ["Red −6 in RAW so the silk pattern doesn't clip", "Orange luminance +6: brighter skin without a mask", "Frequency separation on the face, 8 spot fixes", "Soft light on the face and eyes so the gaze reads first", "Teal shadows against the red, vignette"],
+      tech: "ACR: Exposure +0.2 · Highlights −20 · Shadows +12<br>HSL: Red sat −6 · Orange lum +6", credit: "Photo: @exztagram · model: @natasyanact" } },
+  { id: "owl_2", group: "animals", w: 1600, h: 1066,
+    ru: { title: "Сипуха", genre: "Дикая природа", task: "Отделить птицу от фона светом, а не резкостью.",
+      done: ["Текстура +15: проработаны перья", "Локальный свет на сову, фон уведён в глубокий бирюзовый", "Тёплая земля, виньетка на 70%"],
+      tech: "ACR: Экспозиция +0.15 · Текстура +15 · Чёткость +5", credit: "Исходник: учебный RAW" },
+    en: { title: "Barn owl", genre: "Wildlife", task: "Separate the bird from the background with light, not sharpening.",
+      done: ["Texture +15 for the feathers", "Local light on the owl, background pushed into deep teal", "Warm ground, 70% vignette"],
+      tech: "ACR: Exposure +0.15 · Texture +15 · Clarity +5", credit: "Source: training RAW" } },
+  { id: "cat_8", group: "animals", w: 1600, h: 1066,
+    ru: { title: "Кот под шляпой", genre: "Животные", task: "Сохранить уют и сделать главным взгляд.",
+      done: ["Текстура +10: шерсть и усы", "Свет на морду, радужки светлее", "Тёплый тон, виньетка на 50%"],
+      tech: "ACR: Экспозиция +0.1 · Света −10 · Текстура +10", credit: "Фото: @ryanbreitkreutz" },
+    en: { title: "Cat under a hat", genre: "Pets", task: "Keep it cosy and let the eyes lead.",
+      done: ["Texture +10 for fur and whiskers", "Light on the face, brighter irises", "Warm tone, 50% vignette"],
+      tech: "ACR: Exposure +0.1 · Highlights −10 · Texture +10", credit: "Photo: @ryanbreitkreutz" } },
+  { id: "giraffe_9", group: "animals", w: 1066, h: 1600,
+    ru: { title: "Жираф в контровом свете", genre: "Животные", task: "Вытащить морду из тени и не выбить небо.",
+      done: ["Тени +50, света −45", "Локальный свет на голову", "Солнечное пятно приглушено", "Дымка +8: небо плотнее"],
+      tech: "ACR: Тени +50 · Света −45 · Дымка +8", credit: "Фото: @signatureeditsco" },
+    en: { title: "Backlit giraffe", genre: "Animals", task: "Pull the face out of shadow without blowing the sky.",
+      done: ["Shadows +50, highlights −45", "Local light on the head", "Sun hotspot toned down", "Dehaze +8 for a denser sky"],
+      tech: "ACR: Shadows +50 · Highlights −45 · Dehaze +8", credit: "Photo: @signatureeditsco" } },
+  { id: "temple_1", group: "places", w: 1600, h: 1066,
+    ru: { title: "Храм с благовониями", genre: "Интерьер", task: "Сохранить дым и лучи, проработать резьбу.",
+      done: ["Света −45, тени +20: видны резьба и спирали", "Окно вверху выбито ещё в RAW. Пересвет сокращён с 2,5% до 1,5% кадра, остальное оставлено как есть", "Золотой грейд: бирюзовые тени, тёплые средние и света", "Виньетка ведёт к центру"],
+      tech: "ACR: Света −45 · Тени +20 · Дымка +6<br>Пересвет: 2,5% → 1,5% площади", credit: "Фото: @wutkaicheung" },
+    en: { title: "Incense temple", genre: "Interior", task: "Keep the smoke and light beams, bring out the carving.",
+      done: ["Highlights −45, shadows +20: carving and coils visible", "The top window was already blown in RAW. Clipping cut from 2.5% to 1.5% of the frame; the rest is left honest", "Golden grade: teal shadows, warm mids and highlights", "Vignette leads to the centre"],
+      tech: "ACR: Highlights −45 · Shadows +20 · Dehaze +6<br>Clipping: 2.5% → 1.5% of area", credit: "Photo: @wutkaicheung" } },
+  { id: "dragons_7", group: "places", w: 1066, h: 1600,
+    ru: { title: "Драконы на крыше", genre: "Архитектура", task: "Вытянуть тени под крышей и сохранить драматичное небо.",
+      done: ["Тени +45, экспозиция +0.35", "Градиент сверху возвращает небу глубину синего", "Локальный свет на золото драконов", "Синие тени, золотые света"],
+      tech: "ACR: Экспозиция +0.35 · Тени +45 · Текстура +10", credit: "Фото: @ryanbreitkreutz" },
+    en: { title: "Roof dragons", genre: "Architecture", task: "Open the shadows under the roof and keep the dramatic sky.",
+      done: ["Shadows +45, exposure +0.35", "A top gradient brings back the deep blue of the sky", "Local light on the golden dragons", "Blue shadows, gold highlights"],
+      tech: "ACR: Exposure +0.35 · Shadows +45 · Texture +10", credit: "Photo: @ryanbreitkreutz" } },
+  { id: "street_10", group: "places", w: 1600, h: 1068,
+    ru: { title: "Улица в сумерках", genre: "Город", task: "Спасти недоэкспонированный кадр и оставить настроение синего часа.",
+      done: ["+0.55 EV, тени +30", "Шумоподавление: яркостный шум 25, цветовой 30", "Небо приглушено градиентом: сумерки остаются сумерками", "Холодные тени, тёплые фары и фонари"],
+      tech: "ACR: Экспозиция +0.55 · Тени +30 · NR 25/30", credit: "Исходник: учебный RAW" },
+    en: { title: "Street at dusk", genre: "City", task: "Rescue an underexposed frame and keep the blue-hour mood.",
+      done: ["+0.55 EV, shadows +30", "Noise reduction: luminance 25, colour 30", "Sky held down with a gradient so dusk still reads as dusk", "Cool shadows, warm headlights and street lamps"],
+      tech: "ACR: Exposure +0.55 · Shadows +30 · NR 25/30", credit: "Source: training RAW" } },
+  { id: "halong_4", group: "places", w: 1066, h: 1600,
+    ru: { title: "Бухта Халонг", genre: "Тревел", task: "Пасмурный день без провала в серость.",
+      done: ["DNG: база собрана корректирующими слоями", "Градиент на небо: тяжесть сверху", "Вода в бирюзу, мягкий кинотон", "Виньетка"],
+      tech: "Кривая базы · Сочность +22 · Градиент неба −20", credit: "Исходник: учебный RAW" },
+    en: { title: "Ha Long Bay", genre: "Travel", task: "An overcast day that doesn't turn grey.",
+      done: ["DNG: base built from adjustment layers", "Sky gradient adds weight at the top", "Water pushed to teal, soft cinematic tone", "Vignette"],
+      tech: "Base curve · Vibrance +22 · Sky gradient −20", credit: "Source: training RAW" } },
+  { id: "skate_5", group: "places", w: 1066, h: 1600,
+    ru: { title: "Скейт на розовой стене", genre: "Предметная", task: "Не испортить палитру, которая уже работает.",
+      done: ["Мягкая матовая база: тени чуть приподняты", "Тёплые света +3", "Минимальное вмешательство: кадр держится на цвете"],
+      tech: "Матовая кривая · Сочность +6 · Баланс светов +3", credit: "Исходник: Signature Edits" },
+    en: { title: "Skateboard on a pink wall", genre: "Product", task: "Don't spoil a palette that already works.",
+      done: ["Soft matte base: shadows lifted slightly", "Warm highlights +3", "Minimal intervention: the frame lives on its colour"],
+      tech: "Matte curve · Vibrance +6 · Highlight balance +3", credit: "Source: Signature Edits" } }
+];
+
+let LANG = "ru";
+try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "en") LANG = saved; else if (!/^ru|^hy/i.test(navigator.language || "")) LANG = "en"; } catch (e) {}
+
+function card(w, t, L) {
+  const orient = w.h > w.w ? "portrait" : "landscape";
+  const el = document.createElement("article");
+  el.className = "work " + orient;
+  el.id = w.id;
+  el.innerHTML = `
+    <figure class="cmp" style="aspect-ratio:${w.w}/${w.h}">
+      <img class="after" src="img/${w.id}_after.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altAfter}" decoding="async">
+      <img class="before" src="img/${w.id}_before.jpg" width="${w.w}" height="${w.h}" alt="${t.title}: ${L.altBefore}" decoding="async">
+      <div class="split"></div><div class="knob" aria-hidden="true">⇆</div>
+      <span class="tag l">${L.before}</span><span class="tag r">${L.after}</span>
+      <input type="range" min="0" max="100" value="50" step="1" id="r-${w.id}" aria-label="${L.cmpLabel}: ${t.title}">
+    </figure>
+    <div class="notes">
+      <div class="head"><div class="eyebrow">${t.genre}</div><h3>${t.title}</h3><p class="task">${t.task}</p></div>
+      <ul>${t.done.map(d => `<li>${d}</li>`).join("")}</ul>
+      <div class="tech mono">${t.tech}</div>
+      <div class="credit mono">${t.credit}</div>
+    </div>`;
+  wire(el.querySelector(".cmp"));
+  return el;
+}
+
+function wire(fig) {
+  const range = fig.querySelector("input");
+  const set = (p) => { p = Math.max(0, Math.min(100, p)); fig.style.setProperty("--pos", p + "%"); range.value = Math.round(p); };
+  let dragging = false;
+  const fromEvent = (e) => { const r = fig.getBoundingClientRect(); set(((e.clientX - r.left) / r.width) * 100); };
+  fig.addEventListener("pointerdown", (e) => { dragging = true; fig.setPointerCapture(e.pointerId); fromEvent(e); range.focus({ preventScroll: true }); });
+  fig.addEventListener("pointermove", (e) => { if (dragging) fromEvent(e); });
+  fig.addEventListener("pointerup", () => { dragging = false; });
+  fig.addEventListener("pointercancel", () => { dragging = false; });
+  range.addEventListener("input", () => set(+range.value));
+  range.addEventListener("keydown", (e) => {
+    if (e.key === "Home") { set(0); e.preventDefault(); }
+    if (e.key === "End") { set(100); e.preventDefault(); }
+  });
+}
+
+function render() {
+  const L = T[LANG];
+  document.documentElement.lang = LANG;
+  document.title = LANG === "ru" ? "Портфолио ретуши · Yulian" : "Retouching portfolio · Yulian";
+  for (const el of document.querySelectorAll("[data-i]")) { const v = L[el.dataset.i]; if (typeof v === "string") el.textContent = v; }
+  document.getElementById("pipeline").innerHTML = L.pipeline.map(s => `<span>${s.replace("&", "&amp;")}</span>`).join("<i>→</i>");
+  document.getElementById("steps").innerHTML = L.steps.map(s => `<li><b>${s[0]}</b><h3>${s[1].replace("&", "&amp;")}</h3><p>${s[2]}</p></li>`).join("");
+  for (const g of ["portraits", "animals", "places"]) for (const a of document.querySelectorAll(`#${g} > article`)) a.remove();
+  for (const w of WORKS) document.getElementById(w.group).appendChild(card(w, w[LANG], L));
+  for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
+}
+
+for (const b of document.querySelectorAll(".lang button")) b.addEventListener("click", () => {
+  LANG = b.dataset.lang; try { localStorage.setItem("lang", LANG); } catch (e) {}
+  render();
+});
+
+for (const btn of document.querySelectorAll(".contact .copy")) btn.addEventListener("click", () => {
+  const L = T[LANG];
+  const done = (msg) => { btn.textContent = msg; setTimeout(() => { btn.textContent = T[LANG].copy; }, 1600); };
+  try {
+    navigator.clipboard.writeText(btn.dataset.copy).then(() => done(L.copied), () => {
+      const a = btn.previousElementSibling; const r = document.createRange(); r.selectNodeContents(a); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done(L.copyFail);
+    });
+  } catch (e) { done(L.copyFail); }
+});
+
+render();
+</script>
