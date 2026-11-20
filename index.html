@@ -159,6 +159,22 @@ header.top.hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); ga
 .sheet-strip a:hover img, .sheet-strip a:focus-visible img { opacity: 1; transform: translateY(-2px); }
 .sheet-strip a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+/* ---------- marketplace cards ---------- */
+.cards-lead { margin: -16px 0 0; max-width: 64ch; color: var(--muted); }
+.cardset { display: grid; gap: 14px; padding-top: 28px; border-top: 1px solid var(--line); }
+.cardset + .cardset { margin-top: 28px; }
+.cardset-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; }
+.cardset-head h3 { font-size: var(--step-1); font-weight: 500; }
+.cardset-head span { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); }
+.cardset-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.cardset-grid a { display: block; border-radius: 6px; overflow: hidden; background: var(--frame); aspect-ratio: 3 / 4; box-shadow: 0 18px 36px -24px rgba(0,0,0,.5); transition: transform .2s, box-shadow .2s; }
+.cardset-grid a:hover, .cardset-grid a:focus-visible { transform: translateY(-3px); box-shadow: 0 26px 44px -24px rgba(0,0,0,.6); outline: none; }
+.cardset-grid a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cardset-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cardset-grid figcaption { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); padding-top: 6px; }
+.cardset-grid figure { margin: 0; display: grid; }
+@media (max-width: 640px) { .cardset-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 /* ---------- work polish ---------- */
 section.group > h2 .count { font-family: var(--f-mono); font-size: var(--step--1); font-weight: 400; color: var(--on-accent); background: var(--accent); padding: 2px 8px; border-radius: 99px; letter-spacing: .04em; align-self: center; }
 .work { padding-top: 40px; border-top: 1px solid var(--line); scroll-margin-top: 70px; }
@@ -213,6 +229,7 @@ section.group > h2 + .work { border-top: 0; padding-top: 0; }
     <a href="#portraits" data-i="nav_portraits"></a>
     <a href="#animals" data-i="nav_animals"></a>
     <a href="#places" data-i="nav_places"></a>
+    <a href="#cards" data-i="nav_cards"></a>
     <a href="#process" data-i="nav_process"></a>
     <a href="#hire" data-i="nav_hire"></a>
     <span class="hint" data-i="hint"></span>
@@ -222,6 +239,12 @@ section.group > h2 + .work { border-top: 0; padding-top: 0; }
   <section class="group" id="portraits"><h2><span data-i="g_portraits"></span> <small data-i="g_portraits_s"></small></h2></section>
   <section class="group" id="animals"><h2><span data-i="g_animals"></span> <small data-i="g_animals_s"></small></h2></section>
   <section class="group" id="places"><h2><span data-i="g_places"></span> <small data-i="g_places_s"></small></h2></section>
+
+  <section class="group cards" id="cards">
+    <h2><span data-i="g_cards"></span> <small data-i="g_cards_s"></small></h2>
+    <p class="cards-lead" data-i="cards_lead"></p>
+    <div id="cards-list"></div>
+  </section>
 
   <section class="process" id="process">
     <h2 data-i="proc_h"></h2>
@@ -246,6 +269,11 @@ const T = {
     where: "Гюмри · удалённо",
     eyebrow: "Ретушь и цветокоррекция · 15 работ · 2026",
     nav_hard: "Сложные случаи", g_hard: "Сложные случаи", g_hard_s: "акне, реставрация, тёмный кадр",
+    nav_cards: "Карточки товаров", g_cards: "Карточки для маркетплейсов", g_cards_s: "Wildberries · Ozon · Авито",
+    cards_lead: "Обложка и слайды инфографики 1200×1600 (3:4). Товар вырезан из фона, каждый файл — PSD со слоями: тексты, цвета и фото товара меняются за минуты. Бренды вымышленные, сделаны для портфолио.",
+    cardsets: [["Беспроводные наушники", "тёмный техно-стиль"], ["Крем для лица", "пастельная бьюти-подача"], ["Кожаные кеды", "яркий спортивный стиль"]],
+    cardnames: ["Обложка", "Преимущества", "Характеристики", "Обложка", "Компоненты", "Как применять", "Обложка", "Детали", "Размерная сетка"],
+    cardcredit: "Фото товара:",
     h1: "Свет, кожа и цвет <em>без потери живости</em>",
     sheet_h: "Контактный лист · 15 кадров · нажмите, чтобы перейти",
     stats: [["15", "работ в портфолио"], ["384", "точечные правки"], ["16 бит", "все правки слоями"]],
@@ -270,13 +298,18 @@ const T = {
       ["06 · Вывод", "Резкость под размер", "Повышаю резкость в самом конце, отдельно для печати и для веба. PSD остаётся без неё."]
     ],
     hire_h: "Связаться",
-    hire_p: "Беру ретушь портретов, предметную и тревел-съёмку, цветокоррекцию серий. Работаю удалённо из Гюмри. Пришлите пару кадров и задачу, отвечу со сроками и стоимостью.",
+    hire_p: "Беру ретушь портретов, предметную и тревел-съёмку, цветокоррекцию серий и карточки товаров для маркетплейсов. Работаю удалённо из Гюмри. Пришлите пару кадров и задачу, отвечу со сроками и стоимостью.",
     footer: "Исходники взяты из открытых учебных наборов RAW и с Pexels (лицензия Pexels). Автор снимка указан у каждой работы, где он известен. Ретушь и цветокоррекция выполнены мной."
   },
   en: {
     where: "Gyumri · remote",
     eyebrow: "Retouching & colour grading · 15 works · 2026",
     nav_hard: "Hard cases", g_hard: "Hard cases", g_hard_s: "acne, restoration, dark frames",
+    nav_cards: "Product cards", g_cards: "Marketplace product cards", g_cards_s: "Wildberries · Ozon · Avito",
+    cards_lead: "Cover and infographic slides at 1200×1600 (3:4). The product is cut out from its background and every file is a layered PSD, so texts, colours and the product photo can be swapped in minutes. Brands are fictional, made for the portfolio.",
+    cardsets: [["Wireless headphones", "dark tech style"], ["Face cream", "soft pastel beauty"], ["Leather sneakers", "bold sport style"]],
+    cardnames: ["Cover", "Benefits", "Specs", "Cover", "Ingredients", "How to use", "Cover", "Details", "Size chart"],
+    cardcredit: "Product photo:",
     h1: "Light, skin and colour <em>that stay alive</em>",
     sheet_h: "Contact sheet · 15 frames · tap to jump",
     stats: [["15", "works in the portfolio"], ["384", "spot fixes"], ["16-bit", "every edit on a layer"]],
@@ -301,7 +334,7 @@ const T = {
       ["06 · Output", "Sharpening per size", "Sharpening comes last, tuned separately for print and web. The PSD stays unsharpened."]
     ],
     hire_h: "Contact",
-    hire_p: "I take on portrait retouching, product and travel work, and colour grading for series. Based in Gyumri, working remotely. Send a couple of frames and your brief, and I'll reply with timing and a quote.",
+    hire_p: "I take on portrait retouching, product and travel work, colour grading for series, and marketplace product cards. Based in Gyumri, working remotely. Send a couple of frames and your brief, and I'll reply with timing and a quote.",
     footer: "Sources come from open RAW training sets and Pexels (Pexels licence). The photographer is credited on each work where known. Retouching and colour grading are mine."
   }
 };
@@ -506,6 +539,15 @@ function render() {
     cnt.textContent = pad2(WORKS.filter(w => w.group === g).length);
   }
   ORDER.forEach((w, i) => document.getElementById(w.group).appendChild(card(w, w[LANG], L, i + 1)));
+  const CARDSETS = [
+    { id: "headphones", files: ["card_01_cover", "card_02_benefits", "card_03_specs"], credit: "Caleb Oquendo (Pexels)" },
+    { id: "cream", files: ["card_01_cover", "card_02_ingredients", "card_03_howto"], credit: "Deepa Nishad (Pexels)" },
+    { id: "sneakers", files: ["card_01_cover", "card_02_details", "card_03_sizes"], credit: "saeed karimi (Pexels)" }];
+  document.getElementById("cards-list").innerHTML = CARDSETS.map((cs, si) => `
+    <div class="cardset">
+      <div class="cardset-head"><h3>${L.cardsets[si][0]}</h3><span>${L.cardsets[si][1]} · ${L.cardcredit} ${cs.credit}</span></div>
+      <div class="cardset-grid">${cs.files.map((f, fi) => `<figure><a href="img/cards/${cs.id}_${f}.jpg" target="_blank" rel="noopener"><img src="img/cards/${cs.id}_${f}.jpg" alt="${L.cardsets[si][0]}: ${L.cardnames[si * 3 + fi]}" loading="lazy" decoding="async" width="900" height="1200"></a><figcaption>${pad2(fi + 1)} · ${L.cardnames[si * 3 + fi]}</figcaption></figure>`).join("")}</div>
+    </div>`).join("");
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
 }
 
