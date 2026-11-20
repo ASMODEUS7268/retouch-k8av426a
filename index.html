@@ -161,6 +161,7 @@ footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-w
   </header>
 
   <nav class="sections" aria-label="Sections">
+    <a href="#hard" data-i="nav_hard"></a>
     <a href="#portraits" data-i="nav_portraits"></a>
     <a href="#animals" data-i="nav_animals"></a>
     <a href="#places" data-i="nav_places"></a>
@@ -169,6 +170,7 @@ footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-w
     <span class="hint" data-i="hint"></span>
   </nav>
 
+  <section class="group" id="hard"><h2><span data-i="g_hard"></span> <small data-i="g_hard_s"></small></h2></section>
   <section class="group" id="portraits"><h2><span data-i="g_portraits"></span> <small data-i="g_portraits_s"></small></h2></section>
   <section class="group" id="animals"><h2><span data-i="g_animals"></span> <small data-i="g_animals_s"></small></h2></section>
   <section class="group" id="places"><h2><span data-i="g_places"></span> <small data-i="g_places_s"></small></h2></section>
@@ -194,7 +196,8 @@ footer { padding-block: 40px 0; color: var(--muted); font-size: 0.9375rem; max-w
 const T = {
   ru: {
     where: "Гюмри · удалённо",
-    eyebrow: "Ретушь и цветокоррекция · 10 работ · 2026",
+    eyebrow: "Ретушь и цветокоррекция · 15 работ · 2026",
+    nav_hard: "Сложные случаи", g_hard: "Сложные случаи", g_hard_s: "акне, реставрация, тёмный кадр",
     h1: "Свет, кожа и цвет без потери живости",
     lead: "Портреты, животные, интерьеры и улицы. Работаю из RAW и без разрушения исходника: каждый шаг лежит отдельным слоем, его можно ослабить или отменить.",
     pipeline: ["RAW", "Camera Raw", "чистка", "частотное разложение", "Dodge & Burn", "цвет", "резкость под вывод"],
@@ -216,11 +219,12 @@ const T = {
     ],
     hire_h: "Связаться",
     hire_p: "Беру ретушь портретов, предметную и тревел-съёмку, цветокоррекцию серий. Работаю удалённо из Гюмри. Пришлите пару кадров и задачу, отвечу со сроками и стоимостью.",
-    footer: "Исходные RAW-файлы взяты из открытых учебных наборов. Автор снимка указан у каждой работы, где он известен. Ретушь и цветокоррекция выполнены мной."
+    footer: "Исходники взяты из открытых учебных наборов RAW и с Pexels (лицензия Pexels). Автор снимка указан у каждой работы, где он известен. Ретушь и цветокоррекция выполнены мной."
   },
   en: {
     where: "Gyumri · remote",
-    eyebrow: "Retouching & colour grading · 10 works · 2026",
+    eyebrow: "Retouching & colour grading · 15 works · 2026",
+    nav_hard: "Hard cases", g_hard: "Hard cases", g_hard_s: "acne, restoration, dark frames",
     h1: "Light, skin and colour that stay alive",
     lead: "Portraits, animals, interiors and streets. I work from RAW and never touch the original: every step sits on its own layer, so it can be dialled back or removed.",
     pipeline: ["RAW", "Camera Raw", "clean-up", "frequency separation", "Dodge & Burn", "colour", "output sharpening"],
@@ -242,11 +246,46 @@ const T = {
     ],
     hire_h: "Contact",
     hire_p: "I take on portrait retouching, product and travel work, and colour grading for series. Based in Gyumri, working remotely. Send a couple of frames and your brief, and I'll reply with timing and a quote.",
-    footer: "The source RAW files come from open training sets. The photographer is credited on each work where known. Retouching and colour grading are mine."
+    footer: "Sources come from open RAW training sets and Pexels (Pexels licence). The photographer is credited on each work where known. Retouching and colour grading are mine."
   }
 };
 
 const WORKS = [
+  { id: "beauty_acne_11", group: "hard", w: 1066, h: 1600,
+    ru: { title: "Бьюти-портрет с акне", genre: "Бьюти", task: "Убрать воспаления и сохранить живую кожу.",
+      done: ["27 воспалений на щеке, подбородке и груди убраны точечно", "Частотное разложение: тон выровнен, поры и пушок на месте", "Покраснение кожи успокоено, свет на лицо и под глаза", "Тёплый тон кожи вместо блёклого исходника"],
+      tech: "Исходник JPEG · PSD 16 бит · 4 группы слоёв", credit: "Фото: Polina Tankilevitch (Pexels)" },
+    en: { title: "Beauty portrait with acne", genre: "Beauty", task: "Remove breakouts and keep skin alive.",
+      done: ["27 breakouts on cheek, chin and chest removed one by one", "Frequency separation: tone evened, pores and vellus hair intact", "Redness calmed, light on the face and under the eyes", "Warm skin tone instead of the flat original"],
+      tech: "JPEG source · 16-bit PSD · 4 layer groups", credit: "Photo: Polina Tankilevitch (Pexels)" } },
+  { id: "skin_closeup_12", group: "hard", w: 1600, h: 1068,
+    ru: { title: "Кожа крупным планом", genre: "Мужской портрет", task: "Воспалённое акне крупным планом: убрать бугорки, оставить поры и щетину.",
+      done: ["Каждый бугорок найден целиком и закрыт с запасом, около 120 правок", "В зоне акне тон выровнен сильнее, на остальном лице мягче", "Поры и щетина сохранены, кожа не «пластиковая»", "Блики на щеке приглушены"],
+      tech: "Исходник JPEG 16 Мп · частотное разложение с весовой маской", credit: "Фото: Towfiqu barbhuiya (Pexels)" },
+    en: { title: "Skin close-up", genre: "Men's portrait", task: "Inflamed acne in close-up: remove the bumps, keep pores and stubble.",
+      done: ["Every bump found whole and covered with margin, about 120 fixes", "Stronger tone evening in the acne zone, gentler elsewhere", "Pores and stubble kept, no plastic skin", "Cheek shine toned down"],
+      tech: "16 MP JPEG source · frequency separation with a weighted mask", credit: "Photo: Towfiqu barbhuiya (Pexels)" } },
+  { id: "restoration_13", group: "hard", w: 1248, h: 1600,
+    ru: { title: "Реставрация старой фотографии", genre: "Реставрация", task: "Карточка начала XX века: точки, пятна, выцветание.",
+      done: ["Около 260 крупных дефектов убраны точечно: точки, клякса", "Пыль и царапины сняты фильтром, на лицах деликатно", "Фон за людьми восстановлен, зерно возвращено", "Контраст восстановлен, мягкая сепия без пятен, рваная кромка обрезана"],
+      tech: "Скан JPEG · лица исключены из грубой чистки", credit: "Фото: Lisa Fotios (Pexels)" },
+    en: { title: "Old photo restoration", genre: "Restoration", task: "An early 20th-century card: dots, stains, fading.",
+      done: ["About 260 larger defects healed one by one: dots and a blot", "Dust and scratches removed with a filter, gently on the faces", "Background behind the sitters rebuilt, grain put back", "Contrast restored, clean soft sepia, torn edge cropped"],
+      tech: "JPEG scan · faces excluded from heavy cleaning", credit: "Photo: Lisa Fotios (Pexels)" } },
+  { id: "interior_15", group: "hard", w: 1200, h: 1600,
+    ru: { title: "Тёмная комната", genre: "Интерьер", task: "Из тёмного кадра сделать интерьер, который хочется снять.",
+      done: ["Тени открыты кривой, окно защищено маской", "Шум в тенях сглажен", "Бирюзовый оттенок убран, баланс белого стал тёплым", "Деталь в окне сохранена"],
+      tech: "Исходник JPEG · кривые с масками · медиана 4 px", credit: "Фото: Ivan Xolod (Pexels)" },
+    en: { title: "Dark room", genre: "Interior", task: "Turn a dark frame into a room you'd want to rent.",
+      done: ["Shadows opened with curves, window protected by a mask", "Shadow noise smoothed", "Teal cast removed, warmer white balance", "Window detail kept"],
+      tech: "JPEG source · masked curves · 4 px median", credit: "Photo: Ivan Xolod (Pexels)" } },
+  { id: "mountain_lake_14", group: "hard", w: 1600, h: 1200,
+    ru: { title: "Горное озеро в тумане", genre: "Пейзаж", task: "Плоский пасмурный кадр сделать объёмным.",
+      done: ["Локальный контраст: камни и хвоя получили объём", "Передний план осветлён, небо утяжелено градиентом", "Бирюзовая вода, зелёно-холодный грейд"],
+      tech: "Исходник JPEG · USM r60 как «чёткость» · сочность +28", credit: "Фото: Mateusz Feliksik (Pexels)" },
+    en: { title: "Misty mountain lake", genre: "Landscape", task: "Give depth to a flat overcast frame.",
+      done: ["Local contrast gives the rocks and pines volume", "Foreground lifted, sky weighted with a gradient", "Teal water, cool green grade"],
+      tech: "JPEG source · USM r60 as clarity · vibrance +28", credit: "Photo: Mateusz Feliksik (Pexels)" } },
   { id: "portrait_3916", group: "portraits", w: 1066, h: 1600,
     ru: { title: "Студийный портрет", genre: "Бьюти", task: "Чистая кожа без потери текстуры и характера.",
       done: ["44 воспаления убраны точечно, веснушки и родинка сохранены", "Частотное разложение: тон выровнен на 40%, поры на месте", "Убраны прядь через щёку и выбившиеся волоски на фоне", "Приглушены блики на скулах, осветлена зона под глазами", "Зубы: минус 30 насыщенности жёлтого", "Цвет: холодные тени, тёплые света, мягкая S-кривая"],
@@ -368,7 +407,7 @@ function render() {
   for (const el of document.querySelectorAll("[data-i]")) { const v = L[el.dataset.i]; if (typeof v === "string") el.textContent = v; }
   document.getElementById("pipeline").innerHTML = L.pipeline.map(s => `<span>${s.replace("&", "&amp;")}</span>`).join("<i>→</i>");
   document.getElementById("steps").innerHTML = L.steps.map(s => `<li><b>${s[0]}</b><h3>${s[1].replace("&", "&amp;")}</h3><p>${s[2]}</p></li>`).join("");
-  for (const g of ["portraits", "animals", "places"]) for (const a of document.querySelectorAll(`#${g} > article`)) a.remove();
+  for (const g of ["hard", "portraits", "animals", "places"]) for (const a of document.querySelectorAll(`#${g} > article`)) a.remove();
   for (const w of WORKS) document.getElementById(w.group).appendChild(card(w, w[LANG], L));
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
 }
